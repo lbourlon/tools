@@ -4,10 +4,12 @@ aline:
 	@echo "todo"
 
 messiah:
-	@cd messiah/ && make && mv messiah ../bins/
+	mkdir -p bins
+	cd messiah/ && make && mv messiah ../bins/
 
 tests:
-	@cd messiah/ && make test
+	mkdir -p test-results
+	@cd messiah/ && make test && mv tests/results.xml ../test-results/messiah_results.xml
 
 
 .PHONY: messiah tests builds aline

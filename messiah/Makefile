@@ -10,7 +10,7 @@ INLHEADERS = $(wildcard $(SRC)/*.h)
 
 TEST		= tests
 TESTS		= $(wildcard $(TEST)/*.c)
-TESTBINS	= $(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(TESTS))
+TESTBINS	= $(patsubst $(TEST)/%.c, $(TEST)/%, $(TESTS))
 
 messiah: $(SRCS) $(INLHEADERS)
 	$(CC) $(CFLAGS) -o $@ $(SRCS) $(LIBS)
@@ -19,15 +19,15 @@ valgrind:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./messiah
 
 # Compiles tests
-$(TEST)/bin/%: $(TEST)/%.c 
+$(TEST)/%: $(TEST)/%.c
 	$(CC) $< $(SRCS_MINUS_MAIN) -o $@ -lcriterion  $(LIBS)
 
-# Runs tests, 
+# Runs tests
 test: clean_tests $(TESTBINS)
 	@echo "Messiah Tests"
-	for test in $(TESTBINS) ; do ./$$test ; done
+	for test in $(TESTBINS) ; do ./$$test --xml=$(TEST)/results.xml; done
 
-clean_tests: 
+clean_tests:
 	rm -f $(TEST)/bin/* 2>/dev/null
 
 clean: clean_tests

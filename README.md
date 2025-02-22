@@ -1,8 +1,7 @@
 # Tools
 
-Collection of tools for personal use.
+Collection of tools for personal use and fun
 
-## TODO :
+## Tools :
 
-[ ] Detect if output is terminal and add '\n'
-[ ] Remove trailing '\n' from input ?
+* messiah : base64 decoder / encoder written in C
